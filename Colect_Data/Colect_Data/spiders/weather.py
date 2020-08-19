@@ -13,7 +13,7 @@ class ExampleSpider(scrapy.Spider):
     e_day = '20190101'
     num = 24
     loc_list = list(pd.read_csv(r'C:\Users\svsta\big_contest\datas\out_data\loc.csv', header=None)[1:][0])
-    loc_count = 0
+    loc_count = 57
     
     
     URL = 'http://apis.data.go.kr/1360000/AsosHourlyInfoService/getWthrDataList?serviceKey=JBatS%2BMfY2VXN5uzPh4y5aEwr9i6n0dfH%2BDAwWyw8BuUwcljukH7VgytQ%2BCLnUfzIi148AUH2IGFeLAFaxN3iQ%3D%3D&pageNo=1&dataCd=ASOS&dateCd=HR&stnIds={}&startHh=00&endHh=23&dataType=JSON'.format(loc_list[loc_count])
@@ -44,7 +44,7 @@ class ExampleSpider(scrapy.Spider):
             ExampleSpider.now_date = datetime.date(2019,1,1)
             ExampleSpider.URL = 'http://apis.data.go.kr/1360000/AsosHourlyInfoService/getWthrDataList?serviceKey=JBatS%2BMfY2VXN5uzPh4y5aEwr9i6n0dfH%2BDAwWyw8BuUwcljukH7VgytQ%2BCLnUfzIi148AUH2IGFeLAFaxN3iQ%3D%3D&pageNo=1&dataCd=ASOS&dateCd=HR&stnIds={}&startHh=00&endHh=23&dataType=JSON'.format(ExampleSpider.loc_list[ExampleSpider.loc_count])
 
-            if ExampleSpider.loc_count == int(len(ExampleSpider.loc_list)/4):
+            if ExampleSpider.loc_count == int(3*len(ExampleSpider.loc_list)/4):
                 return
         yield scrapy.Request(ExampleSpider.URL + '&numOfRows={}&startDt={}&endDt={}'.format(ExampleSpider.num, 
                             str(ExampleSpider.now_date).replace('-',''),
