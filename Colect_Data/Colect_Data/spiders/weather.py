@@ -12,7 +12,7 @@ class ExampleSpider(scrapy.Spider):
     s_day = '20190101'
     e_day = '20190101'
     num = 24
-    loc_list = list(pd.read_csv(r'C:\Users\svsta\big_contest\datas\out_data\loc.csv', header=None)[1:][0])
+    loc_list = list(pd.read_csv(r'C:\Users\student\big_contest\datas\out_data\loc.csv', header=None)[1:][0])
     loc_count = 73
     
     
