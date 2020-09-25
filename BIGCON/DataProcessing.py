@@ -18,8 +18,11 @@ def make_feature(datas, target_col = '상품군'):
     
     return datas
 
-def normalize(datas, target_col):
-    data_mean, data_std = datas.describe()[target_col][['mean','std']]
+def normalize(datas, target_col, norm_df=''):
+    if type(norm_df) == str:
+        norm_df = datas.describe()
+
+    data_mean, data_std = norm_df[target_col][['mean','std']]
     datas[target_col] = (datas[target_col] - data_mean) / data_std
 
     return datas
