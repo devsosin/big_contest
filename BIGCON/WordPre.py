@@ -86,7 +86,7 @@ def word_extract(datas):
             score.right_branching_entropy
             )
          )
-    return 
+    return words
 
 def noun_extract(datas):
     ne = LRNounExtractor_v2(verbose=True)
@@ -95,12 +95,19 @@ def noun_extract(datas):
     return nouns
 
 import pickle
-def soy_tokenizer(ext_type = 'noun'):
+def soy_tokenizer(ext_type = 'noun', nouns='', words = ''):
     # 파일 불러오기
-    with open(r'.\Model\Extractor\nouns.bin', 'rb') as f:
-        nouns = pickle.load(f)
-    with open(r'.\Model\Extractor\words.bin', 'rb') as f:
-        words = pickle.load(f)
+    if type(nouns) != str:
+        nouns = nouns
+    else:
+        with open(r'.\Model\Extractor\nouns.bin', 'rb') as f:
+            nouns = pickle.load(f)
+    if type(words) != str:
+        words = words
+    else:
+        with open(r'.\Model\Extractor\words.bin', 'rb') as f:
+            words = pickle.load(f)
+
 
     noun_scores = {noun:score.score for noun, score in nouns.items()}
     cohesion_score = {word:score.cohesion_forward for word, score in words.items()}
@@ -117,9 +124,13 @@ def soy_tokenizer(ext_type = 'noun'):
     elif ext_type == 'comb':
         return LTokenizer(scores = combined_scores)
 
-def vectorizer(datas):
-    with open(r'.\Insta\Model\Tokenizer\tokenizer.bin', 'rb') as f:
-        tokenizer = pickle.load(f)
+def vectorizer(datas, tokenizer = '', saving=False):
+    if type(tokenizer) != str:
+        tokenizer = tokenizer
+    else:
+        with open(r'.\Insta\Model\Tokenizer\tokenizer.bin', 'rb') as f:
+            tokenizer = pickle.load(f)
+
     for d in datas[:10]:
         print(tokenizer.tokenize(d))
 
@@ -133,21 +144,30 @@ def vectorizer(datas):
         lowercase=True,
         verbose=True
     )
-    vectorizing.fit(datas)
-    with open(r'.\Insta\Model\Vectorizer\vectorizer.bin', 'wb') as f:
-        pickle.dump(vectorizing, f)
+    temp = vectorizing.fit(datas)
+    if saving:
+        with open(r'.\Insta\Model\Vectorizer\vectorizer.bin', 'wb') as f:
+            pickle.dump(vectorizing, f)
+    else:
+        return temp
 
-def embedding_datas(datas, TARGET_ID, change_path='.', max_length = 128):
-    with open(r'{}\Model\Vectorizer\vectorizer.bin'.format(change_path), 'rb') as f:
-        vectorizer = pickle.load(f)
+def embedding_datas(datas, TARGET_ID, vectorizer ='', change_path='.', max_length = 128, saving=False):
+    if type(vectorizer) == str:
+        with open(r'{}\Model\Vectorizer\vectorizer.bin'.format(change_path), 'rb') as f:
+            vectorizer = pickle.load(f)
+    else:
+        vectorizer = vectorizer
+
     temp = pd.DataFrame([vectorizer.encode_a_doc_to_list(d) for d in datas]).fillna(0).astype(int)
     now_columns = len(temp.columns)
     if now_columns < max_length:
         for i in range(now_columns, max_length):
             temp[i] = 0
     co = temp.columns[:max_length]
-    temp = temp[co]
-    temp.to_csv(r'{}\Target_Data\{}\Result.txt'.format(change_path, TARGET_ID))
+    if saving:
+        temp[co].to_csv(r'{}\Target_Data\{}\Result.txt'.format(change_path, TARGET_ID))
+    else:
+        return temp[co]
     
 
 # POS Tagging
