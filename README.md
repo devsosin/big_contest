@@ -32,7 +32,7 @@
 - **평가지표**
 
 1. 평균 절대 비율 오차 (MAPE : Mean Absolute Percentage Error)
-   ![image-20200928165745036](C:\Users\svsta\AppData\Roaming\Typora\typora-user-images\image-20200928165745036.png)
+   ![img1](./img/1.png)
 
 
 
@@ -74,11 +74,11 @@
 
 2. Test SET에 대한 모델의 예측 그래프
 
-![image-20200928171512658](C:\Users\svsta\AppData\Roaming\Typora\typora-user-images\image-20200928171512658.png)
+![img2](./img/2.png)
 
 3. XGBoost Best Parametor Model Feature Importances
 
-![피쳐중요도](C:\Users\svsta\OneDrive\Portfolio\공모전\2020\빅콘테스트\참고자료\TEMP\피쳐중요도.png)
+![img3](./img/3.png)
 
 
 
