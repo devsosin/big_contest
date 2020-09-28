@@ -32,6 +32,7 @@
 - **평가지표**
 
 1. 평균 절대 비율 오차 (MAPE : Mean Absolute Percentage Error)
+   
    ![img1](./BIGCON/img/1.png)
 
 
