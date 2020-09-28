@@ -32,7 +32,7 @@
 - **평가지표**
 
 1. 평균 절대 비율 오차 (MAPE : Mean Absolute Percentage Error)
-   ![img1](./img/1.png)
+   ![img1](./BIGCON/img/1.png)
 
 
 
@@ -74,11 +74,11 @@
 
 2. Test SET에 대한 모델의 예측 그래프
 
-![img2](./img/2.png)
+![img2](./BIGCON/img/2.png)
 
 3. XGBoost Best Parametor Model Feature Importances
 
-![img3](./img/3.png)
+![img3](./BIGCON/img/3.png)
 
 
 
